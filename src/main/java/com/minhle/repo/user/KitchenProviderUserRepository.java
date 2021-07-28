@@ -1,17 +1,16 @@
-package com.minhle.repo;
+package com.minhle.repo.user;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper; 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
-import com.minhle.model.KitchenProviderUser;
+import com.minhle.model.user.KitchenProviderUser;
 
 @Repository
-public class  KitchenProviderRepository  {
+public class  KitchenProviderUserRepository  {
 //	 @Autowired
 //	 private DynamoDBMapper dynamoDBMapper;
 //	 public  void saveUser(KitchenProviderUser user) {

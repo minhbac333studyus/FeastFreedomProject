@@ -1,4 +1,4 @@
-package com.minhle.model;
+package com.minhle.model.user;
 
 import org.springframework.stereotype.Component;
 
