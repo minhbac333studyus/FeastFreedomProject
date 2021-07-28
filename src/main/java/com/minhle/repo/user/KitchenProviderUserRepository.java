@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper; 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.minhle.model.user.KitchenProviderUser;
+import com.minhle.model.user.KitchenProviderUserPrincipal;
 
 @Repository
 public class  KitchenProviderUserRepository  {
@@ -22,6 +23,10 @@ public class  KitchenProviderUserRepository  {
     public KitchenProviderUser saveUser(KitchenProviderUser user) {
         dynamoDBMapper.save(user);
         return user;
+    }
+    public KitchenProviderUser findByEmail(String email )
+    {
+    	return dynamoDBMapper.load(KitchenProviderUser.class, email);
     }
     public List<KitchenProviderUser> findAllUsers(){
     	//DynamoDBQueryExpression<KitchenProviderUser> queryExpression = new DynamoDBQueryExpression<KitchenProviderUser>();

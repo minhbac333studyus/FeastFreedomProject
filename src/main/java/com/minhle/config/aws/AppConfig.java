@@ -1,4 +1,4 @@
-package com.minhle.config;
+package com.minhle.config.aws;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
