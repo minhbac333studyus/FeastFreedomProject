@@ -14,11 +14,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service; 
 import com.minhle.controller.KitchenUserRegistrationDto;
 import com.minhle.model.user.KitchenProviderUser;
-import com.minhle.model.user.KitchenProviderUserPrincipal;
+ 
 import com.minhle.repo.user.KitchenProviderUserRepository;
 import org.springframework.security.core.userdetails.*;
 @Service
-public class KitchenProviderService {
+public class KitchenProviderService implements UserDetailsService {
 	@Autowired
 	KitchenProviderUserRepository kitchenProviderRepository;
 	@Autowired
@@ -37,13 +37,13 @@ public class KitchenProviderService {
         return kitchenProviderRepository.saveUser(user);
     }
 	 
-  
+    @Override
     public UserDetails loadUserByUsername(String providerName) throws UsernameNotFoundException {
     	KitchenProviderUser user = kitchenProviderRepository.findByEmail(providerName);
         if (user == null){
             throw new UsernameNotFoundException("Invalid username or password.");
         }
-        return new  KitchenProviderUserPrincipal(user);
+        return (user);
         		 
     }
 

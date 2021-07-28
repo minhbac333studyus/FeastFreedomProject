@@ -8,8 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper; 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.minhle.model.user.KitchenProviderUser;
-import com.minhle.model.user.KitchenProviderUserPrincipal;
-
+ 
 @Repository
 public class  KitchenProviderUserRepository  {
 //	 @Autowired

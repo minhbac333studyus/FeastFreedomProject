@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.minhle.model.user.KitchenProviderUserPrincipal;
+import com.minhle.model.user.KitchenProviderUser;
+ 
 import com.minhle.service.KitchenProviderService;
  
 @SpringBootTest
@@ -26,8 +27,8 @@ class KitchenProviderModuleApplicationTests {
 	@Test
 	void testGetAllProvider() {
 		System.out.println("LOL");
-		List<KitchenProviderUserPrincipal> result = service.findAllProvider();
-		for( KitchenProviderUserPrincipal u : result) {
+		List<KitchenProviderUser> result = service.findAllProvider();
+		for( KitchenProviderUser u : result) {
 			System.out.println(u);
 		}
 	}
