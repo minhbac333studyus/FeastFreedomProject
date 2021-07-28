@@ -8,7 +8,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 @DynamoDBTable(tableName = "KitchenProviderUser") 
-  @Component
+@Component
 public class KitchenProviderUser {
 
     @DynamoDBHashKey
@@ -19,6 +19,13 @@ public class KitchenProviderUser {
 	private String email;
     @DynamoDBAttribute
 	private String password;
+    
+    
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "\n"+ email + " " + password ;
+	}
 	public String getId() {
 		return id;
 	}
