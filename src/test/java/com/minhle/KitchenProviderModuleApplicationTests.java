@@ -5,10 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.minhle.controller.KitchenUserRegistrationDto;
 import com.minhle.model.kitchen.Item;
 import com.minhle.model.kitchen.Kitchen;
-import com.minhle.model.user.KitchenProviderUser;
+import com.minhle.model.user.kitchenprovider.KitchenProviderUser;
 import com.minhle.repo.kitchen.KitchenRepo;
+import com.minhle.repo.user.KitchenProviderRepository;
 import com.minhle.service.KitchenProviderService;
  
 @SpringBootTest
@@ -21,12 +23,15 @@ class KitchenProviderModuleApplicationTests {
 //	private KitchenRepo kitchenRepo;
 	@Autowired
 	private KitchenProviderService service;
+	@Autowired
+	KitchenProviderRepository repo;
 	@Test
 	void testSaveProvider() {
 		KitchenProviderUser user = new KitchenProviderUser();
-		user.setEmail("test3timesl@gma.lc");
-		user.setPassword("LOL");
-		user.setName("KKK");
+		 
+		user.setEmail("minhbac444@gmail.com");
+		user.setPassword("1234");
+		user.setName("minh");
 		service.saveProvider(user);
 		
 	}
@@ -46,6 +51,20 @@ class KitchenProviderModuleApplicationTests {
 //		kit.setImageUrl("this url");
 //		kitchenRepo.saveKitchen(kit);
 //	}
-	
+//	@Test
+//	void testGetUserEmail( ) {
+//		KitchenProviderUser result = repo.findByEmail("minhbac33@gmail.com");
+//		 
+//			System.out.println(result);
+//		 
+//	}
+//	@Test
+//	void testGetUserName( ) {
+//		KitchenProviderUser result = repo.findByName("minh");
+//		 
+//			System.out.println(result);
+//		 
+//	}
+
 
 }

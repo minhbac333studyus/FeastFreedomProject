@@ -25,10 +25,7 @@ public class AppConfig {
     private String awsRegion;
 	 
 
- 	@Bean
-    public DynamoDBMapper dynamoDBMapper() {
-        return new DynamoDBMapper(buildAmazonDynamoDB());
-    }
+ 	
 
     private AmazonDynamoDB buildAmazonDynamoDB() {
         return AmazonDynamoDBClientBuilder
@@ -38,6 +35,10 @@ public class AppConfig {
                 .withCredentials(new AWSStaticCredentialsProvider(
                    new BasicAWSCredentials(dynamodbAccessKey,dynamodbSecretKey)))
                 .build();
+    }
+    @Bean
+    public DynamoDBMapper dynamoDBMapper() {
+        return new DynamoDBMapper(buildAmazonDynamoDB());
     }
 
  

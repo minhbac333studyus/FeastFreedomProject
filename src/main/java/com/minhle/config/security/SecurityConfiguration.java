@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter; 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -15,13 +15,10 @@ import com.minhle.service.KitchenProviderService;
  
 //1 . Create configuation class extensd WebSecurity
 //2. Provide BCryptPasswordEndcoder -> in this class, we can encrupt any data
-//3. Invoke DaoAuthenticationProvider
-
-
+//3. Invoke DaoAuthenticationProvider 
 @Configuration
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-	//Active string secureity
-		//Performance 
+@EnableWebSecurity
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter { 
 	@Autowired
 	KitchenProviderService kitchenUserService;
 
@@ -36,6 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 							 "/js",
 							 "/css",
 							 "/img",
+							 "/admin/***",
 							 "webjars/**").permitAll()
 										  .anyRequest()
 										  .authenticated()
@@ -53,14 +51,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
  
 	}
 	
-	@Bean
-	//invoke persistance layer
+	@Bean 
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
-	}
-	//Override DAOAuthentication 
-	//getter and setter
-	//inject to the repo 
+	} 
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider()
 	{
