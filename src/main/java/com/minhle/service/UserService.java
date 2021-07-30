@@ -12,41 +12,41 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service; 
 import com.minhle.controller.KitchenUserRegistrationDto;
-import com.minhle.model.user.KitchenProviderUser;
+import com.minhle.model.user.*;
 import com.minhle.repo.user.KitchenProviderRepository;
- 
+import com.minhle.repo.user.UserRepository;
 @Service
-public class KitchenProviderService implements UserDetailsService 
+public class UserService implements UserDetailsService 
 {
 	@Autowired
-	KitchenProviderRepository kitchenProviderRepository;
+	UserRepository userRepository;
 	
 	 @Autowired
 	 private BCryptPasswordEncoder passwordEncoder;
 	 
-	public void saveProvider(KitchenProviderUser kitchenProviderUser) {
-		kitchenProviderRepository.saveUser(kitchenProviderUser);
+	public void saveProvider(com.minhle.model.user.EndUser user) {
+		userRepository.saveUser(user);
 	}
-	public List<KitchenProviderUser> findAllProvider() {
-		return kitchenProviderRepository.findAllUsers();
+	public List<com.minhle.model.user.EndUser> findAllProvider() {
+		return userRepository.findAllUsers();
 	}
-	public KitchenProviderUser findByEmail(String email){
-        return kitchenProviderRepository.findByEmail(email) ;
+	public com.minhle.model.user.EndUser findByEmail(String email){
+        return userRepository.findByEmail(email) ;
 	}
 	
 
     //dto =  data transfer object 
-	public KitchenProviderUser saveFromDTO(KitchenUserRegistrationDto registration){
-		KitchenProviderUser user = new KitchenProviderUser();
+	public com.minhle.model.user.EndUser saveFromDTO(KitchenUserRegistrationDto registration){
+		com.minhle.model.user.EndUser user = new com.minhle.model.user.EndUser();
 	    user.setName(registration.getName()); 
 	    user.setEmail(registration.getEmail()); 
 	    user.setPassword(passwordEncoder.encode(registration.getPassword()));  
-	    return kitchenProviderRepository.saveUser(user);
+	    return userRepository.saveUser(user);
 	} 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		final KitchenProviderUser provider = kitchenProviderRepository.findByName(username) ;
+		final com.minhle.model.user.EndUser provider = userRepository.findByName(username) ;
 	    if (provider.getName() == "Empty") {
 	        throw new UsernameNotFoundException("Invalid username or password.");
 	    }

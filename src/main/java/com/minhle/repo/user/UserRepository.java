@@ -9,22 +9,23 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.minhle.model.user.KitchenProviderUser;
+import com.minhle.model.user.EndUser;
  
 @Repository
-public class  KitchenProviderRepository  { 
+public class  UserRepository  { 
 	final String TableName = "KitchenProviderUser";
 	@Autowired
     private DynamoDBMapper dynamoDBMapper; 
-    public KitchenProviderUser saveUser(KitchenProviderUser user) {
+    public EndUser saveUser(EndUser user) {
         dynamoDBMapper.save(user);
         return user;
     }
-    public List<KitchenProviderUser> findAllUsers(){
+    public List<EndUser> findAllUsers(){
     	//DynamoDBQueryExpression<KitchenProviderUser> queryExpression = new DynamoDBQueryExpression<KitchenProviderUser>();
     	DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-    	return dynamoDBMapper.scan(KitchenProviderUser.class, scanExpression);
+    	return dynamoDBMapper.scan(EndUser.class, scanExpression);
     } 
-	public KitchenProviderUser findByEmail(String email )
+	public EndUser findByEmail(String email )
     { 
 		Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
 		eav.put(":Email", new AttributeValue().withS(email));
@@ -32,12 +33,12 @@ public class  KitchenProviderRepository  {
 													.withFilterExpression("Email = :Email")
 													.withExpressionAttributeValues(eav); 
 		if(dynamoDBMapper.scan(KitchenProviderUser.class, scanRequest).size() ==0) {
-			return new KitchenProviderUser();
+			return new EndUser();
 		}
-    	return dynamoDBMapper.scan(KitchenProviderUser.class, scanRequest).get(0);
+    	return dynamoDBMapper.scan(EndUser.class, scanRequest).get(0);
     } 
 	
-	public KitchenProviderUser findByName(String name )
+	public EndUser findByName(String name )
     { 
 		Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
 		eav.put(":Service_Provider_Name", new AttributeValue().withS(name));
@@ -45,8 +46,8 @@ public class  KitchenProviderRepository  {
 													.withFilterExpression("Service_Provider_Name = :Service_Provider_Name")
 													.withExpressionAttributeValues(eav); 
 		if(dynamoDBMapper.scan(KitchenProviderUser.class, scanRequest).size() ==0) {
-			return new KitchenProviderUser();
+			return new EndUser();
 		}
-    	return dynamoDBMapper.scan(KitchenProviderUser.class, scanRequest).get(0);
+    	return dynamoDBMapper.scan(EndUser.class, scanRequest).get(0);
     } 
 }

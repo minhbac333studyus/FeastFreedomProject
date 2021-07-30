@@ -2,6 +2,8 @@ package com.minhle.controller;
  
  
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.messaging.MessagingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,9 +12,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.minhle.model.user.kitchenprovider.KitchenProviderUser;
+import com.minhle.model.user.KitchenProviderUser;
 import com.minhle.service.KitchenProviderService;
+import com.minhle.service.NotificationEmailService;
 
+import java.io.UnsupportedEncodingException;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -21,7 +27,9 @@ public class ProviderRegistrationController {
 
     @Autowired
     private KitchenProviderService kitchenProviderService;
-
+    
+    @Autowired
+    private NotificationEmailService notificationEmailService;
     @ModelAttribute("kitchenProviderUser")
     public KitchenUserRegistrationDto userRegistrationDto() {
         return new KitchenUserRegistrationDto();
@@ -31,7 +39,9 @@ public class ProviderRegistrationController {
     public String showRegistrationForm(Model model) {
         return "registration";
     }
-
+    
+ 
+    
     @PostMapping
     public String registerUserAccount(@ModelAttribute("kitchenProviderUser") 
     								  @Valid KitchenUserRegistrationDto kitchenUserRegistrationDto, 
@@ -46,6 +56,7 @@ public class ProviderRegistrationController {
         if (result.hasErrors()){
             return "registration";
         }
+         
 
         kitchenProviderService.saveFromDTO(kitchenUserRegistrationDto);
         return "redirect:/registration?success";

@@ -9,20 +9,14 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.client.builder.AwsClientBuilder;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClientBuilder;
 
 import io.awspring.cloud.ses.SimpleEmailServiceMailSender;
- 
 @Configuration
 
-public class AppConfig {
-	@Value("${amazon.dynamodb.endpoint}") 
-	private String dynamodbEndpoint;
+public class EmailConfig {
+	
 	@Value("${amazon.ses.endpoint}")
 	private String sesEndpoint;
 	@Value("${amazon.aws.accesskey}")
@@ -31,23 +25,32 @@ public class AppConfig {
 	private String dynamodbSecretKey;
 	 @Value("${amazon.aws.region}")
     private String awsRegion; 
+ 
 	 
- /*
-  * DYNAMODB Initualize...
-  */
-    private AmazonDynamoDB buildAmazonDynamoDB() {
-        return AmazonDynamoDBClientBuilder
-                .standard()
-                .withEndpointConfiguration(
-                   new AwsClientBuilder.EndpointConfiguration(dynamodbEndpoint,awsRegion))
-                .withCredentials(new AWSStaticCredentialsProvider(
-                   new BasicAWSCredentials(dynamodbAccessKey,dynamodbSecretKey)))
-                .build();
-    }
-    @Bean
-    public DynamoDBMapper dynamoDBMapper() {
-        return new DynamoDBMapper(buildAmazonDynamoDB());
-    }
+	 /*
+	  * AWS SES Initualize
+	  */
+	    @Bean
+	    public AmazonSimpleEmailService amazonSimpleEmailService() {
 
-
+	      return AmazonSimpleEmailServiceClientBuilder
+	    		  .standard() 
+	              .withRegion(awsRegion)
+	              .withCredentials(new AWSStaticCredentialsProvider(
+	                 new BasicAWSCredentials(dynamodbAccessKey,dynamodbSecretKey)))
+	              .build();
+	    }
+	    
+	    @Bean
+	    public MailSender mailSender(  AmazonSimpleEmailService amazonSimpleEmailService) {
+	      return new SimpleEmailServiceMailSender(amazonSimpleEmailService);
+	    }
+	    /*
+	     * EMAIL CLOUD SPRING Initualize
+	     */
+	    @Bean
+	    public JavaMailSender getJavaMailSender() {
+	        JavaMailSenderImpl mailSender = new JavaMailSenderImpl(); 
+	        return mailSender;
+	    }
 }

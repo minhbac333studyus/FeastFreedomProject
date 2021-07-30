@@ -36,6 +36,12 @@
 		    <artifactId>commons-beanutils</artifactId>
 		    <version>1.9.4</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
 				
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -44,6 +50,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web-services</artifactId>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy -->
+		<dependency>
+		    <groupId>net.bytebuddy</groupId>
+		    <artifactId>byte-buddy</artifactId>  
 		</dependency>
 
 		<dependency>
@@ -104,11 +116,24 @@
 	    </dependency> 
 		<dependency>
 		    <groupId>com.amazonaws</groupId>
-		    <artifactId>aws-java-sdk-dynamodb</artifactId>
-		    <version>1.11.857</version>
+		    <artifactId>aws-java-sdk-dynamodb</artifactId> 
 		</dependency> 
 		
-		<!-- Aws -->
+		<!-- Aws SES email service -->
+		<dependency>
+		    <groupId>io.awspring.cloud</groupId>
+		     <artifactId>spring-cloud-starter-aws-ses</artifactId>
+		    </dependency>
+	    <dependency>
+	        <groupId>io.awspring.cloud</groupId>
+	        <artifactId>spring-cloud-starter-aws-messaging</artifactId>
+	    </dependency>
+	    <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-mail</artifactId> 
+		</dependency>
+	    
 		<!-- Test package -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
@@ -121,6 +146,7 @@
 		        </exclusion>
 		    </exclusions>
 		</dependency>
+		
 	</dependencies>
 
 	<build>
