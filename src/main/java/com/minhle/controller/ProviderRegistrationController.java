@@ -2,7 +2,7 @@ package com.minhle.controller;
  
  
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
+ 
 import org.springframework.messaging.MessagingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.minhle.model.user.KitchenProviderUser;
 import com.minhle.service.KitchenProviderService;
-import com.minhle.service.NotificationEmailService;
+//import com.minhle.service.NotificationEmailService;
 
 import java.io.UnsupportedEncodingException;
 
@@ -28,8 +28,8 @@ public class ProviderRegistrationController {
     @Autowired
     private KitchenProviderService kitchenProviderService;
     
-    @Autowired
-    private NotificationEmailService notificationEmailService;
+//    @Autowired
+//    private NotificationEmailService notificationEmailService;
     @ModelAttribute("kitchenProviderUser")
     public KitchenUserRegistrationDto userRegistrationDto() {
         return new KitchenUserRegistrationDto();
