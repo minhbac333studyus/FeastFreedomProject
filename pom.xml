@@ -16,11 +16,9 @@
 	<description>provide login page for kitchen provider</description>
 	
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 		<package>war</package>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
-		
+		 
 	</properties>
 
 	<dependencyManagement>
@@ -94,7 +92,7 @@
 		<dependency>
 		    <groupId>org.thymeleaf.extras</groupId>
 		    <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-		    <version>3.0.4.RELEASE</version>
+		   
 		</dependency>
       	<!--  Bootstrap -->
       	<dependency>
@@ -153,15 +151,7 @@
 		<plugins>
 		
 			<!--  add here -->
-			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-compiler-plugin</artifactId>
-			    <version>3.8.0</version>
-			    <configuration>
-			        <release>11</release>
-			    </configuration>
-			</plugin>
-			
+			 
 			<plugin>
 				<groupId>org.asciidoctor</groupId>
 				<artifactId>asciidoctor-maven-plugin</artifactId>
