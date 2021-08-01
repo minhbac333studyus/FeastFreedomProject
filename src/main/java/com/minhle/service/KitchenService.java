@@ -34,4 +34,7 @@ public class KitchenService {
 		Kitchen b=  getDetailOfOneKitchen(K.getKitchenid());
 		krepo.updateKitchen(b.getKitchenid(), K); 
 	}
+	public void deleteKitchenByKitchenName(String kitchenName) {
+		krepo.deleteKitchenByKitchenName(kitchenName);
+	}
 }

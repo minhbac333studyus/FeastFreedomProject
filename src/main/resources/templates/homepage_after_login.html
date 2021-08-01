@@ -22,7 +22,9 @@
 		    	<div class="badge bg-success" sec:authorize = "isAuthenticated()">
 		    		Welcome <span  sec:authentication="name">   Username</span> 
 		    	</div>
-		    	<div sec:authorize="hasRole('PROVIDER')">Text visible to provider user.</div>
+		    	<div sec:authorize="hasRole('PROVIDER')">
+					 <a type="button" class="btn btn-secondary" th:href="@{/provider/kitchenList}">My Kitchen Control</a>
+				</div>
 		    	<div sec:authorize="hasRole('ENDUSER')">Text visible to end user.</div>
 		        <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
 		        <div sec:authorize="isAuthenticated()"> 

@@ -52,13 +52,14 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().and().rememberMe()
 			.tokenRepository(this.persistentTokenRepository())  
 	        .tokenValiditySeconds(1 * 24 * 60 * 60); // 24h
-		
+		//http.antMatcher("/provider*").authorizeRequests().anyRequest().hasRole("PROVIDER");
 		
 		/*
 		 * Allow login with provider Role
 		 */
 		
 		http.authorizeRequests() 
+			
 			.and()
 				.formLogin()
 				.loginPage("/login")

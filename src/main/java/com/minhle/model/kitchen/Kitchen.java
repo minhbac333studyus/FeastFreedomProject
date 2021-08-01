@@ -52,6 +52,7 @@ public class Kitchen {
 
   public Kitchen() {
 			super();
+			kitchenName= "empty";
 		}
 public Kitchen(String providerEmail,String kitchenName, String date, String starttime, String endtime, String imageUrl, Set<String> Menu
 				 ) {

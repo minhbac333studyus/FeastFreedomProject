@@ -1,58 +1,44 @@
-package com.minhle.repo.kitchen;
-
+package com.minhle.repo.kitchen; 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
+import java.util.Map; 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
+import org.springframework.stereotype.Repository; 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBSaveExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ExpectedAttributeValue;
-import com.minhle.model.kitchen.Kitchen;
- 
+import com.minhle.model.kitchen.Kitchen;  
 @Repository
-public class KitchenRepo  {
-    
-	
+public class KitchenRepo  { 
 	@Autowired
-    private DynamoDBMapper dynamoDBMapper;
-	
-	
-	public Kitchen    saveKitchen(Kitchen k){
-   	 
-	
+    private DynamoDBMapper dynamoDBMapper; 
+	public Kitchen    saveKitchen(Kitchen k){ 
 		dynamoDBMapper.save(k);
-	    	 return k;
-	     }
-	
-	
-	public Kitchen getbykitcheName(String name) {
-		
-		 Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
-			eav.put(":name", new AttributeValue().withS(name.toLowerCase()));
-			DynamoDBScanExpression scanRequest = new DynamoDBScanExpression()	
-														.withFilterExpression("kitchenName=:name")
+    	 return k;
+    }  
+	public Kitchen getbykitcheName(String name) { 
+		Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+		eav.put(":kitchenName", new AttributeValue().withS(name));
+		DynamoDBScanExpression scanRequest = new DynamoDBScanExpression()	
+													.withFilterExpression("kitchenName=:kitchenName")
 														.withExpressionAttributeValues(eav); 
-			List<Kitchen> list =  dynamoDBMapper.scan(Kitchen.class, scanRequest);
-		 
-			System.out.println(list.toString());
-		 
-		 
-		 return list.get(0);
+		List<Kitchen> list =  dynamoDBMapper.scan(Kitchen.class, scanRequest);
+		if(list.size() ==0) {
+			return new Kitchen();
+		}
+		System.out.println(list.toString()); 
+		return list.get(0);
 	}
 	public List<Kitchen> getAllKitchenByProviderEmail(String providerEmail) {
 		Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
-		eav.put(":providerEmail", new AttributeValue().withS(providerEmail.toLowerCase()));
+		eav.put(":providerEmail", new AttributeValue().withS(providerEmail));
 		DynamoDBScanExpression scanRequest = new DynamoDBScanExpression()	
 													.withFilterExpression("providerEmail=:providerEmail")
 													.withExpressionAttributeValues(eav); 
 		List<Kitchen> list =  dynamoDBMapper.scan(Kitchen.class, scanRequest);
-	 
+		
 		System.out.println(list.toString());
 		return list;
 	}
@@ -73,17 +59,23 @@ public class KitchenRepo  {
 	  }
 	 
 	 
-	 public  String updateKitchen(String id,Kitchen K) {
-		 
-		 
+	 public  String updateKitchen(String id,Kitchen K) { 
 		 dynamoDBMapper.save(K,
 	                new DynamoDBSaveExpression()
 	        .withExpectedEntry("id",
 	                new ExpectedAttributeValue(
 	                        new AttributeValue().withS(id)
 	                )));
-	        return id;
-				
-			 
+	        return id; 
+	 }
+	 public void deleteKitchenByKitchenName(String kitchenName) {
+		 Kitchen kitchen = this.getbykitcheName(kitchenName);
+		 if(kitchen.getKitchenName() == "empty") {
+			 System.out.println("No kitchen " + kitchenName +" to delete");
 		 }
+		 else {
+			 dynamoDBMapper.delete(kitchen);
+		 }
+		
+	 }	
 }

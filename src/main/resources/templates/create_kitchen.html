@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Boot Thymeleaf Application - Form Samples - Inputs</title>
+</head>
+<body>
+	<form align = "center" action="#" th:action ="@{/provider/kitchen/save}" th:object = "${kitchen}" method = "post">
+	    <div class="d-flex flex-column bd-highlight"> 
+	    	<div class="badge bg-success" sec:authorize = "isAuthenticated()">
+		    		Welcome <span  sec:authentication="name">   Username</span> 
+	    	</div>
+	    	  <div class="input-group">
+			    <span class="input-group-text" id="input-group-left-example">Kitchen Name</span>
+			    <input type = "text" th:field = "*{providerEmail}"  id = "providerEmail" placeholder="Type your provider email here">
+			    <span th:if="${#fields.hasErrors('providerEmail')}" th:errors="*{providerEmail}"></span>
+		    </div>
+		    <div class="input-group">
+			    <span class="input-group-text" id="input-group-left-example">Kitchen Name</span>
+			    <input type = "text" th:field = "*{kitchenName}"  id = "kitchenName" placeholder="Type your kitchen name here">
+			    <span th:if="${#fields.hasErrors('kitchenName')}" th:errors="*{kitchenName}"></span>
+		    </div>
+		    <div class="input-group">
+			    <span class="input-group-text" id="input-group-left-example">Date        </span>
+			    <input type = "text" th:field = "*{date}"  id = "date" placeholder="Type the date here">
+			    <span th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></span>
+		    </div>
+		  
+		   <div class="input-group">
+			    <span class="input-group-text" id="input-group-left-example">Start Time  </span>
+			    <input type = "text" th:field = "*{starttime}"  id = "starttime" placeholder="Type the starttime here">
+			    <span th:if="${#fields.hasErrors('starttime')}" th:errors="*{starttime}"></span>
+		    </div>
+		    <div class="input-group">
+			    <span class="input-group-text" id="input-group-left-example">End Time    </span>
+			    <input type = "text" th:field = "*{endtime}"  id = "endtime" placeholder="Type the endtime here">
+			    <span th:if="${#fields.hasErrors('endtime')}" th:errors="*{endtime}"></span>
+		    </div>
+		    <div class="input-group">
+			    <span class="input-group-text" id="input-group-left-example">ImageUrl    </span>
+			    <input type = "text" th:field = "*{imageUrl}"  id = "imageUrl" placeholder="Type the imageUrl here">
+			    <span th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}"></span>
+		    
+		    </div>
+		    <input type="submit" value="Add Kitchen">
+	    </div>
+	</form>
+</body>
+</html>

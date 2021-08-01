@@ -63,17 +63,24 @@ class KitchenProviderModuleApplicationTests {
 //		EndUser u1 = new EndUser("minh","minhbac333@gmail.com","123");
 //		endUserRepo.saveUser(u1);
 //	}
-	@Test
-	void TestKitchen() { 
-			HashSet<String> menu = new HashSet<String>();
-			Item i1 = new Item();
-			i1.setName("chieck fried");
-			i1.setPrice(12.0);
-			i1.setVegOption(true);
-			menu.add(i1.toString());
-		Kitchen k = new Kitchen("p2@gmail.com","NoKidding", "11-02-2021", "0Am", "12Am", "https://s3.us-east-2.amazonaws.com/feast.freedom/pic2.jpg", menu); 
- 
-		kRepo.saveKitchen(k); 
+//	@Test
+//	void TestKitchen() { 
+//			HashSet<String> menu = new HashSet<String>();
+//			Item i1 = new Item();
+//			i1.setName("chieck fried");
+//			i1.setPrice(12.0);
+//			i1.setVegOption(true);
+//			menu.add(i1.toString());
+//		Kitchen k = new Kitchen("p2@gmail.com","NoKidding", "11-02-2021", "0Am", "12Am", "https://s3.us-east-2.amazonaws.com/feast.freedom/pic2.jpg", menu); 
+// 
+//		kRepo.saveKitchen(k); 
+//	}
+	
+	@Test void testGetAllKitchenByKitchenName() {
+		String kitchenName= "NoKidding";
+		System.out.println(kitchenRepo.getbykitcheName(kitchenName));
+		
+				
 	}
 //	@Test
 //	void testGetAllKitchenByProviderName() {
