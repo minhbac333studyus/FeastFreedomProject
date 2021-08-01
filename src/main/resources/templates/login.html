@@ -8,11 +8,13 @@
 	    <title>Registration</title>
 	</head>
 	<body>
-		<div class="container"> 
+		<div align = "center" class="container"> 
 		    <div class="row">
-		        <div class="col-md-6 col-md-offset-3">
-		            <h1>Login page</h1>
+		        <div   >
+		      		<a type="button" class="btn btn-secondary" th:href="@{/}">Homepage</a>
+		            <h1 class="badge bg-dark">Login page for Kitchen Provider</h1>
 		            <form th:action="@{/login}" method="post">
+		            	 
 		                <div th:if="${param.error}">
 		                    <div class="alert alert-danger">
 		                        Invalid username or password.
@@ -24,7 +26,7 @@
 		                    </div>
 		                </div>
 		                <div class="form-group">
-		                    <label for="username">Username</label>:
+		                    <label for="username">Provider name</label>:
 		                    <input type="text"
 		                           id="username"
 		                           name="username"
@@ -52,7 +54,10 @@
 		                    </div>
 		                </div>
 		                <div class="form-group">
-		                    <span>New user? <a href="/" th:href="@{/registration}">Register here</a></span>
+		                    <span>New Provider? <a href="/" th:href="@{/registration/provider}">Register Provider here</a></span>
+		                </div>
+		                <div class="form-group">
+		                    <span>New user? <a href="/" th:href="@{/registration/enduser}">Register User here</a></span>
 		                </div>
 		            </form>
 		        </div>

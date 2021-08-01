@@ -48,16 +48,7 @@ public class KitchenProviderUser    {
     @DynamoDBAttribute(attributeName = "VerifyStatus")
     private boolean isVerified;
  
-    
-//    @DynamoDBAttribute
-//    @DynamoDBTypeConverted(converter = RoleConverter.class)
-//    private Collection < Role > roles;
-//    public Collection<Role> getRoles() {
-//		return roles;
-//	}
-//	public void setRoles(Collection<Role> roles) {
-//		this.roles = roles;
-//	}
+ 
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

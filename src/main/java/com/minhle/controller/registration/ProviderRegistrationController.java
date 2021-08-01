@@ -1,4 +1,4 @@
-package com.minhle.controller;
+package com.minhle.controller.registration;
  
  
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,36 +12,30 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.minhle.config.security.KitchenUserRegistrationDto;
 import com.minhle.model.user.KitchenProviderUser;
 import com.minhle.service.KitchenProviderService;
 //import com.minhle.service.NotificationEmailService;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/registration")
-public class ProviderRegistrationController {
-
+@RequestMapping("/registration/provider")
+public class ProviderRegistrationController { 
     @Autowired
-    private KitchenProviderService kitchenProviderService;
-    
-//    @Autowired
-//    private NotificationEmailService notificationEmailService;
+    private KitchenProviderService kitchenProviderService; 
     @ModelAttribute("kitchenProviderUser")
     public KitchenUserRegistrationDto userRegistrationDto() {
         return new KitchenUserRegistrationDto();
-    }
-
+    } 
     @GetMapping
     public String showRegistrationForm(Model model) {
-        return "registration";
-    }
-    
- 
-    
+        return "registration_provider";
+    } 
     @PostMapping
     public String registerUserAccount(@ModelAttribute("kitchenProviderUser") 
     								  @Valid KitchenUserRegistrationDto kitchenUserRegistrationDto, 
@@ -54,12 +48,12 @@ public class ProviderRegistrationController {
         }
 
         if (result.hasErrors()){
-            return "registration";
+            return "registration_provider";
         }
          
 
         kitchenProviderService.saveFromDTO(kitchenUserRegistrationDto);
-        return "redirect:/registration?success";
+        return "redirect:/registration/provider?success";
     }
 
 }

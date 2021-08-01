@@ -37,11 +37,11 @@ public void setUserCartname(String userCartname) {
 	this.userCartname = userCartname;
 }
 
-public List<String> getItem() {
+public List<String> getItems() {
 	return Item;
 }
 
-public void setItem(List<String> item) {
+public void setItems(List<String> item) {
 	Item = item;
 }
 

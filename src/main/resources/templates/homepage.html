@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns="http://www.w3.org/1999/xhtml">
+	 
+	<head>
+	    <meta charset="utf-8"/>
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	    <meta name="viewport" content="width=device-width, initial-scale=1"/> 
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	 
+	    <title>Registration</title>
+	</head>
+	<body>
+		<div align = "center" class="container">
+		    <h1>Home page</h1>
+		    <h1 >FeastFreedom Project</h1> 
+		    <div class="row">
+				<div class="col">  
+			  		<a  type="button" class="btn btn-primary"  th:href="@{/login}">Login</a>
+		  		</div> 
+			</div> 
+		    
+		    <div align = "center">
+		    	<div class="badge bg-success" sec:authorize = "isAuthenticated()">
+		    		Welcome <span  sec:authentication="name">   Username</span> 
+		    	</div>
+		    	<div sec:authorize="hasRole('PROVIDER')">Text visible to provider user.</div>
+		    	<div sec:authorize="hasRole('USER')">Text visible to provider user.</div>
+		        <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
+		        <div sec:authorize="isAuthenticated()"> 
+		    </div>
+		    
+		    <table class="table table-striped">
+				  <thead>
+					    <tr> 
+					      <th scope="col">ProviderName</th>
+					      <th scope="col">KitchenName</th> 
+					      <th scope="col">Date</th>
+					      <th scope="col">Start Time</th>
+					      <th scope="col">End Time</th> 
+					      <th scope="col">Picture</th> 
+					    </tr>
+				  </thead>
+				  <tbody>
+					    <tr th:each = "kitchen :${kitchenList}">
+				        
+					   
+						<td th:text = ${kitchen.providerEmail}></td>
+						<td th:text = ${kitchen.kitchenName}></td>
+						<td th:text = ${kitchen.date}></td>
+						<td th:text = ${kitchen.starttime}></td>
+						<td th:text = ${kitchen.endtime}></td>
+						<td>
+							<img th:src= @{${kitchen.imageUrl}} class="img-thumbnail" alt="img-thumbnail"> 
+						</td>
+					 	<!--  <td>
+					 		<a th:href="@{/delete/{idhere}(idhere = ${country.id})}"> Delete</a>
+					 
+					 	<td>
+					 		<a th:href= "@{/edit/{id} (id = ${country.id})}"> Edit</a>
+					 		-->
+				    	</tr>
+				    
+				  </tbody>
+			</table>
+		    
+		    	
+		</div>
+		
+		<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+	
+	
+	</body>
+</html>

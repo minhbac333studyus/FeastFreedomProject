@@ -1,4 +1,4 @@
-package com.minhle.controller;
+package com.minhle.restcontroller;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -24,13 +24,13 @@ import com.minhle.service.KitchenService;
 
 
 @RestController
-public class KitchenController {
+public class KitchenRestController {
 	@Autowired
 	KitchenService kitchenService;
 	
  
 	
-	@GetMapping("/kitchen")
+	@GetMapping("/restkitchen")
 	public List<Kitchen> getKitchens() {
 		System.out.println(kitchenService.ListAllKitchen());
 		return kitchenService.ListAllKitchen();
@@ -55,7 +55,7 @@ public class KitchenController {
     model.addAttribute("postList", postList);
     
     return "all-posts";
-}
+	}
 	 */
 	
 	@GetMapping("/kitchen/{id}")

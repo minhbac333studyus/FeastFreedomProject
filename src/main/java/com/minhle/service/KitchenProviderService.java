@@ -1,9 +1,5 @@
-package com.minhle.service;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
+package com.minhle.service; 
+import java.util.List; 
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service; 
-import com.minhle.controller.KitchenUserRegistrationDto;
+import com.minhle.config.security.KitchenUserRegistrationDto;
 import com.minhle.model.user.KitchenProviderUser;
 import com.minhle.repo.user.KitchenProviderRepository;
  
@@ -51,13 +47,9 @@ public class KitchenProviderService implements UserDetailsService
 	        throw new UsernameNotFoundException("Invalid username or password.");
 	    }
 	    UserDetails providerUserDetail = User.withUsername(provider.getEmail())
-	    						.password(provider.getPassword())
-	    						.authorities("PROVIDER").build();
-        return providerUserDetail;
-//	    return new User(
-//	    	user.getName(),
-//	        user.getPassword(),
-//	        mapRolesToAuthorities(user.getRoles()));
+	    						.password(provider.getPassword()).roles("PROVIDER")
+	    						.build();
+        return providerUserDetail; 
 		
 	}
  

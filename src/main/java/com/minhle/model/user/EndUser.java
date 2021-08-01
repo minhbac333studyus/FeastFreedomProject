@@ -16,7 +16,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
  
 
-@DynamoDBTable(tableName = "User") 
+@DynamoDBTable(tableName = "EndUser") 
 @Component
 public class EndUser    {
 
@@ -26,8 +26,7 @@ public class EndUser    {
     
     @DynamoDBAttribute(attributeName = "User_Name")
     @NotNull
-    @Size(max = 50)
- 
+    @Size(max = 50) 
     private String name; 
     
 	@DynamoDBAttribute(attributeName = "Email")
@@ -48,16 +47,6 @@ public class EndUser    {
     @DynamoDBAttribute(attributeName = "VerifyStatus")
     private boolean isVerified;
  
-    
-//    @DynamoDBAttribute
-//    @DynamoDBTypeConverted(converter = RoleConverter.class)
-//    private Collection < Role > roles;
-//    public Collection<Role> getRoles() {
-//		return roles;
-//	}
-//	public void setRoles(Collection<Role> roles) {
-//		this.roles = roles;
-//	}
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
@@ -70,11 +59,11 @@ public class EndUser    {
 		this.password = "Empty";
 	 
 	} 
-	public EndUser(String id, @NotNull @Size(max = 50) @UniqueElements String name,
+	public EndUser(  @NotNull @Size(max = 50) @UniqueElements String name,
 			@Email @NotNull @Size(max = 50) @UniqueElements String email,
 			@NotNull @Size(min = 10, max = 50) String password ) {
 		super();
-		this.id = id;
+	 
 		this.name = name;
 		this.email = email;
 		this.password = password; 

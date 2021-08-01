@@ -45,6 +45,17 @@ public class KitchenRepo  {
 		 
 		 return list.get(0);
 	}
+	public List<Kitchen> getAllKitchenByProviderEmail(String providerEmail) {
+		Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+		eav.put(":providerEmail", new AttributeValue().withS(providerEmail.toLowerCase()));
+		DynamoDBScanExpression scanRequest = new DynamoDBScanExpression()	
+													.withFilterExpression("providerEmail=:providerEmail")
+													.withExpressionAttributeValues(eav); 
+		List<Kitchen> list =  dynamoDBMapper.scan(Kitchen.class, scanRequest);
+	 
+		System.out.println(list.toString());
+		return list;
+	}
 	
 	 public Kitchen getDetailOfOneKitchen(String id){
 	    	

@@ -8,13 +8,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.minhle.controller.KitchenUserRegistrationDto;
+import com.minhle.config.security.KitchenUserRegistrationDto;
 import com.minhle.model.kitchen.Item;
 import com.minhle.model.kitchen.Kitchen;
-import com.minhle.model.user.KitchenProviderUser;
+import com.minhle.model.user.EndUser;
+import com.minhle.model.user.KitchenProviderUser; 
 import com.minhle.repo.kitchen.KitchenRepo;
+import com.minhle.repo.user.EndUserRepository;
 import com.minhle.repo.user.KitchenProviderRepository;
 import com.minhle.service.KitchenProviderService;
+import com.minhle.service.KitchenService;
  
 @SpringBootTest
 class KitchenProviderModuleApplicationTests {
@@ -28,6 +31,12 @@ class KitchenProviderModuleApplicationTests {
 	private KitchenProviderService service;
 	@Autowired
 	KitchenProviderRepository repo;
+	@Autowired
+	KitchenService kitchenService;
+	@Autowired
+	KitchenRepo kitchenRepo;
+	@Autowired
+	EndUserRepository endUserRepo;
 //	@Test
 //	void testSaveProvider() {
 //		KitchenProviderUser user = new KitchenProviderUser();
@@ -35,25 +44,45 @@ class KitchenProviderModuleApplicationTests {
 //		user.setEmail("minhbac55@gmail.com");
 //		user.setPassword("1234");
 //		user.setName("minh");
-//		service.saveProvider(user);
-//		
+////		List<Role> roles = new ArrayList<>();
+////		roles.add(new Role("roles_provider"));
+////		user.getRoles().addAll(roles);
+//		service.saveProvider(user); 
 //	}
 	@Autowired
 	KitchenRepo kRepo;
+//	@Test
+//	void testGetEndUser() {
+//		List<EndUser> l1 = endUserRepo.findAllUsers();
+//		for(EndUser u : l1) {
+//			System.out.println(u);
+//		}
+//	}
+//	@Test
+//	void TestCreateEndUser() {
+//		EndUser u1 = new EndUser("minh","minhbac333@gmail.com","123");
+//		endUserRepo.saveUser(u1);
+//	}
 	@Test
-	void TestKitchen() {
-		 
+	void TestKitchen() { 
 			HashSet<String> menu = new HashSet<String>();
 			Item i1 = new Item();
 			i1.setName("chieck fried");
 			i1.setPrice(12.0);
 			i1.setVegOption(true);
 			menu.add(i1.toString());
-		Kitchen k = new Kitchen("NOTEAM", "12-12-2021", "1Am", "2Am", "https://s3.us-east-2.amazonaws.com/feast.freedom/pic1.jpg", menu); 
+		Kitchen k = new Kitchen("p2@gmail.com","NoKidding", "11-02-2021", "0Am", "12Am", "https://s3.us-east-2.amazonaws.com/feast.freedom/pic2.jpg", menu); 
  
 		kRepo.saveKitchen(k); 
 	}
-	
+//	@Test
+//	void testGetAllKitchenByProviderName() {
+//		String providerName = "minhbac333studyus@gmail.com";
+//		List<Kitchen> list = kitchenRepo.getAllKitchenByProviderEmail(providerName);
+//		for( Kitchen u : list) {
+//			System.out.println(u);
+//		}
+//	}
 //	@Autowired
 //	  private NotificationEmailService notificationService;
 //

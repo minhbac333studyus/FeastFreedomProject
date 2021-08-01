@@ -1,5 +1,6 @@
-package com.minhle.controller;
+package com.minhle.config.security;
 
+ 
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -10,7 +11,7 @@ import com.minhle.constrain.FieldMatch;
     @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
     @FieldMatch(first = "email", second = "confirmEmail", message = "The email fields must match")
 })
-public class KitchenUserRegistrationDto { 
+public class UserRegistrationDto { 
 	@NotEmpty
 	private String name;
  

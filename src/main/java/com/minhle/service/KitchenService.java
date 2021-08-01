@@ -1,8 +1,6 @@
 package com.minhle.service;
 
-import java.util.List;
-import java.util.Optional;
-
+import java.util.List; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,44 +12,26 @@ public class KitchenService {
 
 	
 	@Autowired
-	private KitchenRepo krepo;
-	
-	
-public List<Kitchen>ListAllKitchen(){
-		  
-		  List<Kitchen>klist =  (List<Kitchen>) krepo.ListAllKitchen();
+	private KitchenRepo krepo; 
+	public List<Kitchen>ListAllKitchen(){  
+		List<Kitchen>klist =  (List<Kitchen>) krepo.ListAllKitchen();
 		return klist;
-		  
-	  }
-
-
-
-
-
+	}
+    public List<Kitchen>ListAllKitchenByProviderEmail(String ProviderName){
+    	return krepo.getAllKitchenByProviderEmail(ProviderName);
+    } 
     public Kitchen getDetailOfOneKitchen(String id){
     	
     	return krepo.getDetailOfOneKitchen(id);
-    }
-    
-    
-    public Kitchen getbykitcheName(String name) {
-    	
-    	return krepo.getbykitcheName(name);
-    	
-    }
-    
-    
- public Kitchen    saveKitchen(Kitchen k){
-    	 
-	return  krepo.saveKitchen(k);
-    	 
-     }
- 
- 
- public void updateKitchen(Kitchen K) {
-	 Kitchen b=  getDetailOfOneKitchen(K.getKitchenid());
-	 krepo.updateKitchen(b.getKitchenid(), K);
-		
-	 
- }
+    } 
+    public Kitchen getbykitcheName(String name) { 
+    	return krepo.getbykitcheName(name); 
+    } 
+    public Kitchen    saveKitchen(Kitchen k){ 
+    	return  krepo.saveKitchen(k); 
+    } 
+	public void updateKitchen(Kitchen K) {
+		Kitchen b=  getDetailOfOneKitchen(K.getKitchenid());
+		krepo.updateKitchen(b.getKitchenid(), K); 
+	}
 }
