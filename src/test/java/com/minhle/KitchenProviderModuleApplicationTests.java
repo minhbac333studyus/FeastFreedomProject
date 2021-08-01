@@ -4,6 +4,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -52,6 +54,16 @@ class KitchenProviderModuleApplicationTests {
 	@Autowired
 	KitchenRepo kRepo;
 //	@Test
+//	void getItemInKitchen() {
+//		String kitchenName= "NoKidding";
+//		Set<Item> items = kitchenRepo.getbykitcheName(kitchenName).getMenu();
+//		System.out.println(items[0])
+//		for(Item i : items) {
+//			System.out.println(i.getName());
+//		}
+//		
+//	}
+//	@Test
 //	void testGetEndUser() {
 //		List<EndUser> l1 = endUserRepo.findAllUsers();
 //		for(EndUser u : l1) {
@@ -65,23 +77,24 @@ class KitchenProviderModuleApplicationTests {
 //	}
 //	@Test
 //	void TestKitchen() { 
-//			HashSet<String> menu = new HashSet<String>();
+//			Set<Item> menu = new HashSet<Item>();
 //			Item i1 = new Item();
 //			i1.setName("chieck fried");
 //			i1.setPrice(12.0);
 //			i1.setVegOption(true);
-//			menu.add(i1.toString());
-//		Kitchen k = new Kitchen("p2@gmail.com","NoKidding", "11-02-2021", "0Am", "12Am", "https://s3.us-east-2.amazonaws.com/feast.freedom/pic2.jpg", menu); 
+//			menu.add(i1 );
+//		Kitchen k = new Kitchen("p2@gmail.com","NoKidding", "11-02-2021", "0Am", "12Am", 
+//									"https://s3.us-east-2.amazonaws.com/feast.freedom/pic2.jpg", menu); 
 // 
 //		kRepo.saveKitchen(k); 
 //	}
-	
-	@Test void testGetAllKitchenByKitchenName() {
-		String kitchenName= "NoKidding";
-		System.out.println(kitchenRepo.getbykitcheName(kitchenName));
-		
-				
-	}
+//	
+//	@Test void testGetAllKitchenByKitchenName() {
+//		String kitchenName= "NoKidding";
+//		System.out.println(kitchenRepo.getbykitcheName(kitchenName));
+//		
+//				
+//	}
 //	@Test
 //	void testGetAllKitchenByProviderName() {
 //		String providerName = "minhbac333studyus@gmail.com";

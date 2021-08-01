@@ -2,7 +2,7 @@ package com.minhle.model.kitchen;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute; 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument; 
-@DynamoDBDocument
+
 public class Item {  
 	 @DynamoDBAttribute(attributeName="itemname")
 	 private String name;
@@ -10,6 +10,15 @@ public class Item {
 	 private boolean vegOption;
 	 @DynamoDBAttribute
 	 private Double price; 
+	 
+	 
+	public Item() {
+		super();
+		name = "empty";
+		vegOption = false;
+		price = 0.0;
+	}
+
 	public String getName() {
 		return name;
 	}

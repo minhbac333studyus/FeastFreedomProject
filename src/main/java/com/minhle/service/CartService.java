@@ -1,5 +1,6 @@
 package com.minhle.service;
 
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,18 +8,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.minhle.model.kitchen.Cart;
+import com.minhle.model.kitchen.Item;
 import com.minhle.repo.kitchen.CartRepo;
+import com.minhle.repo.kitchen.KitchenRepo;
 
 @Service
 public class CartService {
 	
 	@Autowired
 	CartRepo crepo;
-	
+	@Autowired
+	KitchenRepo kitchenRepo; 
+//	public void addItemToCart(String ItemName, String KitchenName) {
+//		Set<String> allItem = kitchenRepo.getbykitcheName(KitchenName).getMenu();
+//		for(String i  : allItem) {
+//			if(i.getName() == ItemName) {
+//				
+//			}
+//		}
+//	}
 	public void addedtocart(Cart c) {
 		
 		crepo.addedtocart(c);
-		}
+	}
 	
 	public Cart getcartbyname(String name) {
 		
@@ -35,12 +47,8 @@ public class CartService {
 		while(m.find()) {
 		    double d = Double.parseDouble(m.group(1));
 		    total+=d;
-		}
-		
-		
-		return total;
-		
-	
+		} 
+		return total; 
 	}
 	
 	

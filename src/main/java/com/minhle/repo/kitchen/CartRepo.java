@@ -18,16 +18,19 @@ public class CartRepo {
 	@Autowired
     private DynamoDBMapper dynamoDBMapper; 
 	public void addedtocart(Cart c) { 
-	dynamoDBMapper.save(c);	
+		dynamoDBMapper.save(c);	
 	}   
 	public Cart getcartbyname(String name) { 
-		 Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
-			eav.put(":name", new AttributeValue().withS(name.toLowerCase()));
-			DynamoDBScanExpression scanRequest = new DynamoDBScanExpression()	
+		Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+		eav.put(":name", new AttributeValue().withS(name.toLowerCase()));
+		DynamoDBScanExpression scanRequest = new DynamoDBScanExpression()	
 														.withFilterExpression("userCartname=:name")
 														.withExpressionAttributeValues(eav); 
-			List<Cart> list =  dynamoDBMapper.scan(Cart.class, scanRequest);
-			  return list.get(0);		
+		List<Cart> list =  dynamoDBMapper.scan(Cart.class, scanRequest);
+		if (list.size() == 0) {
+			return new Cart();
+		}
+		return list.get(0);		
 	} 
 	public void deleteitem(Integer d,Cart c) {
 		List<String> stringsList = new ArrayList<>(c.getItems());
@@ -38,20 +41,14 @@ public class CartRepo {
 		List<String> foo = new ArrayList<String>(stringsList);
 		f.setItems(foo);
 		 	updateCart(c.getCartid(),f); 
-	}
-	
-	
-	 public  String updateCart(String id,Cart c) {
-
+	} 
+	 public  String updateCart(String id,Cart c) { 
 		 dynamoDBMapper.save(c,
 	                new DynamoDBSaveExpression()
 	        .withExpectedEntry("cartid",
 	                new ExpectedAttributeValue(
 	                        new AttributeValue().withS(id)
 	                )));
-	        return id;
-				
-	 }
-	
-	
+	        return id; 
+	 } 
 }
