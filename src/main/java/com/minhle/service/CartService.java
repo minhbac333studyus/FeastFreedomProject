@@ -7,9 +7,9 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.minhle.model.kitchen.Cart;
-import com.minhle.model.kitchen.Item;
+import com.minhle.model.kitchen.Cart; 
 import com.minhle.repo.kitchen.CartRepo;
+import com.minhle.repo.kitchen.ItemRepo;
 import com.minhle.repo.kitchen.KitchenRepo;
 
 @Service
@@ -19,18 +19,13 @@ public class CartService {
 	CartRepo crepo;
 	@Autowired
 	KitchenRepo kitchenRepo; 
-//	public void addItemToCart(String ItemName, String KitchenName) {
-//		Set<String> allItem = kitchenRepo.getbykitcheName(KitchenName).getMenu();
-//		for(String i  : allItem) {
-//			if(i.getName() == ItemName) {
-//				
-//			}
-//		}
+	@Autowired
+	ItemRepo itemRepo;
+//	public void addItemToCart(String ItemUnconverted, String KitchenName) {
+//		 Item newItem = itemRepo.getItemByItemNameAndKitchenName(ItemUnconverted, KitchenName);
+//		 crepo.addedtocart(null);
 //	}
-	public void addedtocart(Cart c) {
-		
-		crepo.addedtocart(c);
-	}
+	 
 	
 	public Cart getcartbyname(String name) {
 		
@@ -52,8 +47,5 @@ public class CartService {
 	}
 	
 	
-	
-	public void deleteitem(Integer d,Cart c) {
-		crepo.deleteitem(d, c);
-	}
+ 
 }

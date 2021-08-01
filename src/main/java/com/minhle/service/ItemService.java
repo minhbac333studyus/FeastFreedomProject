@@ -21,10 +21,7 @@ public class ItemService {
 		 
 	return	 irepo.ListAllItem();
 	 } 
-	 public  Item getbyname(String name) {
-		return irepo.getonebyname(name);
-		 
-	 }  
+ 
 	 public  void saveItem(Item i) {
 		 irepo.saveItem(i);
 		 

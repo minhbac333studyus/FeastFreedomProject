@@ -13,6 +13,7 @@ import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClientBuilder;
 
@@ -44,10 +45,13 @@ public class AppConfig {
                    new BasicAWSCredentials(dynamodbAccessKey,dynamodbSecretKey)))
                 .build();
     }
+    DynamoDBMapperConfig dynamoDBMapperConfig = new DynamoDBMapperConfig.Builder()
+  		  .withConsistentReads(DynamoDBMapperConfig.ConsistentReads.CONSISTENT)
+  		  .withSaveBehavior(DynamoDBMapperConfig.SaveBehavior.UPDATE_SKIP_NULL_ATTRIBUTES)
+  		  .build();  
     @Bean
     public DynamoDBMapper dynamoDBMapper() {
-        return new DynamoDBMapper(buildAmazonDynamoDB());
+        return new DynamoDBMapper(buildAmazonDynamoDB(),dynamoDBMapperConfig);
     }
-
-
+   
 }

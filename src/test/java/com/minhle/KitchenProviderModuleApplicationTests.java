@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -11,10 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.minhle.config.security.KitchenUserRegistrationDto;
+import com.minhle.model.kitchen.Cart;
 import com.minhle.model.kitchen.Item;
+import com.minhle.model.kitchen.ItemConverter;
 import com.minhle.model.kitchen.Kitchen;
 import com.minhle.model.user.EndUser;
-import com.minhle.model.user.KitchenProviderUser; 
+import com.minhle.model.user.KitchenProviderUser;
+import com.minhle.repo.kitchen.CartRepo;
+import com.minhle.repo.kitchen.ItemRepo;
 import com.minhle.repo.kitchen.KitchenRepo;
 import com.minhle.repo.user.EndUserRepository;
 import com.minhle.repo.user.KitchenProviderRepository;
@@ -39,6 +44,10 @@ class KitchenProviderModuleApplicationTests {
 	KitchenRepo kitchenRepo;
 	@Autowired
 	EndUserRepository endUserRepo;
+	@Autowired
+	ItemRepo itemRepo;
+	@Autowired
+	CartRepo cartRepo;
 //	@Test
 //	void testSaveProvider() {
 //		KitchenProviderUser user = new KitchenProviderUser();
@@ -53,16 +62,26 @@ class KitchenProviderModuleApplicationTests {
 //	}
 	@Autowired
 	KitchenRepo kRepo;
+//	 
 //	@Test
 //	void getItemInKitchen() {
 //		String kitchenName= "NoKidding";
-//		Set<Item> items = kitchenRepo.getbykitcheName(kitchenName).getMenu();
-//		System.out.println(items[0])
-//		for(Item i : items) {
-//			System.out.println(i.getName());
-//		}
-//		
+//		HashSet<String> items = kitchenRepo.getbykitcheName(kitchenName).getMenu();
+//		Iterator<String> i = items.iterator();
+//        while (i.hasNext()) { 
+//        	Item  a = itemRepo.getItemByItemName(i.next());
+//        	System.out.println(a.getName());
+//        }
 //	}
+	@Test
+	void testCart() {
+		Item item = new Item("Chicken",true,12.0);
+		List<String> allItem = new ArrayList<>();
+		allItem.add(item.toString());
+		Cart cart = new Cart("Minh",allItem);
+		cartRepo.saveCart(cart);
+		
+	}
 //	@Test
 //	void testGetEndUser() {
 //		List<EndUser> l1 = endUserRepo.findAllUsers();
@@ -77,16 +96,17 @@ class KitchenProviderModuleApplicationTests {
 //	}
 //	@Test
 //	void TestKitchen() { 
-//			Set<Item> menu = new HashSet<Item>();
+//			HashSet<String> menu = new HashSet<String>();
 //			Item i1 = new Item();
 //			i1.setName("chieck fried");
 //			i1.setPrice(12.0);
 //			i1.setVegOption(true);
-//			menu.add(i1 );
+//			menu.add(i1.toString() );
+//			
 //		Kitchen k = new Kitchen("p2@gmail.com","NoKidding", "11-02-2021", "0Am", "12Am", 
 //									"https://s3.us-east-2.amazonaws.com/feast.freedom/pic2.jpg", menu); 
-// 
-//		kRepo.saveKitchen(k); 
+//  
+//		kitchenRepo.saveKitchen(k); 
 //	}
 //	
 //	@Test void testGetAllKitchenByKitchenName() {
