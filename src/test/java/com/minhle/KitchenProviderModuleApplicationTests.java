@@ -72,15 +72,15 @@ class KitchenProviderModuleApplicationTests {
 //        	System.out.println(a.getName());
 //        }
 //	}
-	@Test
-	void testCart() {
-		Item item = new Item("Chicken",true,12.0);
-		List<String> allItem = new ArrayList<>();
-		allItem.add(item.toString());
-		Cart cart = new Cart("Minh",allItem);
-		cartRepo.saveCart(cart);
-		
-	}
+//	@Test
+//	void testCart() {
+//		Item item = new Item("Chicken",true,12.0);
+//		List<String> allItem = new ArrayList<>();
+//		allItem.add(item.toString());
+//		Cart cart = new Cart("Minh",allItem);
+//		cartRepo.saveCart(cart);
+//		
+//	}
 //	@Test
 //	void testGetEndUser() {
 //		List<EndUser> l1 = endUserRepo.findAllUsers();
