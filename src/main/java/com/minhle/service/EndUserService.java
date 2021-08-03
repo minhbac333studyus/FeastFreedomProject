@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.minhle.config.security.UserRegistrationDto;
+import com.minhle.model.kitchen.Order;
 import com.minhle.model.user.*; 
 import com.minhle.repo.user.EndUserRepository;
 @Service
@@ -36,7 +37,10 @@ public class EndUserService implements UserDetailsService
 		EndUser user = new EndUser();
 	    user.setName(registration.getName()); 
 	    user.setEmail(registration.getEmail()); 
-	    user.setPassword(passwordEncoder.encode(registration.getPassword()));  
+	    user.setPassword(passwordEncoder.encode(registration.getPassword())); 
+	    Order order = new Order();
+	    order.setUserEmail(registration.getEmail());
+	    user.setTemporaryOrder(order.toString());
 	    return endUserRepository.saveUser(user);
 	} 
 	@Override

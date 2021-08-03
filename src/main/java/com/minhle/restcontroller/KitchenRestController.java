@@ -68,18 +68,18 @@ public class KitchenRestController {
 		}
 	}
 	
-	@PutMapping("/kitchen/{id}")
-	public ResponseEntity<?> updateKitchen(@RequestBody Kitchen kitchen, @PathVariable String id) {
-		try {
-			Kitchen updateKitchen = kitchenService.getDetailOfOneKitchen(id);
-			System.out.println(updateKitchen);
-			kitchen.setKitchenid(id);
-			kitchenService.saveKitchen(updateKitchen);
-			return new ResponseEntity<>(HttpStatus.OK);
-		} catch (NoSuchElementException e) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
+//	@PutMapping("/kitchen/{id}")
+//	public ResponseEntity<?> updateKitchen(@RequestBody Kitchen kitchen, @PathVariable String id) {
+//		try {
+//			Kitchen updateKitchen = kitchenService.getDetailOfOneKitchen(id);
+//			System.out.println(updateKitchen);
+//			kitchen.setKitchenid(id);
+//			kitchenService.saveKitchen(updateKitchen);
+//			return new ResponseEntity<>(HttpStatus.OK);
+//		} catch (NoSuchElementException e) {
+//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//		}
+//	}
 	
 	@PostMapping("/new")
 	public void addKitchen(@RequestBody Kitchen kitchen) {

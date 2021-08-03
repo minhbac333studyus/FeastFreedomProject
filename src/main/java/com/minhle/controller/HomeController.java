@@ -1,6 +1,8 @@
 package com.minhle.controller;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.websocket.server.PathParam;
 
@@ -14,8 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.minhle.model.kitchen.Item;
 import com.minhle.model.kitchen.Kitchen;
+import com.minhle.model.kitchen.Order;
 import com.minhle.model.user.KitchenProviderUser;
+import com.minhle.repo.kitchen.OrderRepo;
 import com.minhle.service.KitchenProviderService;
 import com.minhle.service.KitchenService;
 
@@ -44,7 +49,7 @@ public class HomeController {
 		model.addAttribute("kitchenList", kitchenList); 
 		return "homepage_after_login";
 	}
- 
+
 	 
 	@RequestMapping("/kitchenProviderList")
 	public String getKitchenProviderList(Model model) {
@@ -76,10 +81,39 @@ public class HomeController {
 		return modelAndView;
 		
 	}
-	@RequestMapping("/provider/delete/{kitchenNamePathVar}")
-	public String deleteKitchen(@PathVariable (name ="kitchenNamePathVar" ) String name) {
-		kitchenService.deleteKitchenByKitchenName(name);
-		return "redirect:/provider/kitchenList";
-		
+	@GetMapping("/homepage/kitchen/allItem/{kitchenName}")
+	public String  displayMenu(@PathVariable String kitchenName, Model model) { 
+		 
+		 
+		HashSet<Item> listMenu = kitchenService.getKitchenMenu(kitchenName);
+		model.addAttribute("menuList",listMenu);
+		return "all_Menu_Item";
 	}
+	@Autowired
+	OrderRepo orderRepo;
+	@GetMapping("/user/cart/{userEmail}")
+	public String displayCart(@PathVariable String userEmail, Model model) {
+		String tempOrder = orderRepo.getTempOrder(userEmail);
+		Order convertOrder = orderRepo.orderUnconverted(tempOrder);
+		model.addAttribute("tempOrder", convertOrder);
+		return "cart";
+	}
+	@GetMapping("/cart/add/{userEmail}/{kitchenName}/{itemName}")
+	public String addToCart(@PathVariable String userEmail
+			,@PathVariable String kitchenName
+			,@PathVariable String itemName,
+			 Model model
+			)
+	{
+		orderRepo.addItemToOrder(kitchenName, userEmail, itemName);
+		return"redirect:/user/cart/{userEmail}";
+	}
+	
+ 
+//	@RequestMapping("/provider/delete/{kitchenNamePathVar}")
+//	public String deleteKitchen(@PathVariable (name ="kitchenNamePathVar" ) String name) {
+//		kitchenService.deleteKitchenByKitchenName(name);
+//		return "redirect:/provider/kitchenList";
+//		
+//	}
 }

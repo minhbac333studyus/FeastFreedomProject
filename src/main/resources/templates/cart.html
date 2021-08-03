@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns="http://www.w3.org/1999/xhtml">
@@ -32,50 +33,17 @@
 		    
 		    <table class="table-warning table table-striped">
 				  <thead>
-					    <tr> 
-					      <th scope="col">ProviderName</th>
+					    <tr>  
 					      <th scope="col">KitchenName</th> 
 					      <th scope="col">Date</th>
-					      <th scope="col">Start Time</th>
-					      <th scope="col">End Time</th> 
-					      <th scope="col">Picture</th> 
+					       
 					    </tr>
 				  </thead>
 				  <tbody>
-					    <tr th:each = "kitchen :${kitchenList}">
-				        
-					   	<td >
-							<a th:href="@{/homepage/kitchen/allItem/{kitchenNameHere}
-										  	(kitchenNameHere=${kitchen.kitchenName})
-										  }">
-								<span th:text = "${kitchen.providerEmail}" ></span></a>
-						</td>
-						<td  >
-							<a th:href="@{/homepage/kitchen/allItem/{kitchenNameHere}
-										  	(kitchenNameHere=${kitchen.kitchenName})
-										  }"> 
-					 			<span th:text = "${kitchen.kitchenName}" ></span>
-					 		</a>
-				 		</td>
-						<td th:text = ${kitchen.date}></td>
-						<td th:text = ${kitchen.starttime}></td>
-						<td th:text = ${kitchen.endtime}></td>
-						<td>
-							<a th:href="@{/homepage/kitchen/allItem/{kitchenNameHere}
-										  	(kitchenNameHere=${kitchen.kitchenName})
-										 }"> 
-					 			<img th:src= @{${kitchen.imageUrl}} class="img-thumbnail" alt="img-thumbnail"> 
-					 		</a>
-							
-						</td>
-					 	<!--  <td>
-					 		<a th:href="@{/delete/{idhere}(idhere = ${country.id})}"> Delete</a>
-					 
-					 	<td>
-					 		<a th:href= "@{/edit/{id} (id = ${country.id})}"> Edit</a>
-					 		-->
-				    	</tr>
-				    
+					  <tr>  
+					  <td><p th:text = "${tempOrder.Items}"></p></td>
+					  <td><p th:text = "${tempOrder.total}" ></p> </td> 
+					</tr>
 				  </tbody>
 			</table>
 		    
@@ -88,3 +56,5 @@
 	
 	</body>
 </html>
+ 	
+					    

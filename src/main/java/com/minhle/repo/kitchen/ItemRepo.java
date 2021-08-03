@@ -25,19 +25,25 @@ public class ItemRepo {
 	public void    saveItem(Item i){ 
 		dynamoDBMapper.save(i);
 	} 
-	public Item getItemByItemNameAndKitchenName(String ItemUnconvert, String KitchenName) {
+	public String getItemByItemNameAndKitchenName(String ItemName, String KitchenName) {
 		Kitchen k = kitchenService.getbykitcheName(KitchenName);
 		Set<String>menu = k.getMenu();
 		if(menu.size() ==0)
-			return new Item();  
-		Iterator<String> i = menu.iterator();
-        while (i.hasNext()) {  
-        	if(ItemUnconvert == i.next()) {
-        		return this.unConvert(ItemUnconvert);
-        	}
-        }
+			return new Item().toString();  
+		 
+        HashSet<Item> menuConvert = new HashSet<>();
+		for(String i : menu) {
+			menuConvert.add(this.unConvert(i));
+		}
+		 
+		for(Item i : menuConvert) {
+			System.out.println(i.getName());
+			if(i.getName().equals(ItemName) ) {
+				return i.toString();
+			}
+		}
         System.out.println("Can not find the Item you need in KitchenName");
-        return new Item();
+        return new Item().toString();
 		
 	}
 	public Item unConvert(String ItemUnconvert) {
@@ -53,6 +59,7 @@ public class ItemRepo {
                 	item.setVegOption(true);
                 }
                 item.setPrice(Double.parseDouble(data[2].trim()));
+                item.setKitchenName(data[3].trim());
             }
         }
         catch (Exception e) {

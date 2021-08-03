@@ -41,6 +41,7 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
 		 */
 		http.authorizeRequests().antMatchers("/").permitAll();
 		http.authorizeRequests() .antMatchers("/registration**").permitAll();
+		http.authorizeRequests() .antMatchers("/homepage**").permitAll();
 		/*
 		 * If user login with ROLE_USER but try to access to admin page then send them a message denied
 		 */
