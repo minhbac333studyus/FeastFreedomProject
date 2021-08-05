@@ -22,17 +22,7 @@ public class ItemService {
 	  
 	@Autowired KitchenRepo krepo;
 	
-	 public List<Item>	  ListAllItem(){
-		 
-	 return	 irepo.ListAllItem();
-	 } 
-	 public Item unconvertItem(String s) {
-		 return irepo.unConvert(s);
-	 }
-	 public  void saveItem(Item i) {
-		 irepo.saveItem(i);
-		 
-	 } 
+	 
 	  
  
 }

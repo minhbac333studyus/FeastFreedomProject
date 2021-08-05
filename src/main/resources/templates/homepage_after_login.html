@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns="http://www.w3.org/1999/xhtml">
 	 
@@ -11,24 +11,32 @@
 	</head>
 	<body>
 		<div align = "center" class="container">
-		    <h1>Home page</h1>
-		    <h1 >FeastFreedom Project</h1> 
-		    <div class="row">
-				<div class="col">  
-			  		 <a type="button" class="btn btn-secondary" th:href="@{/logout}">Logout</a>
-		  		</div> 
-			</div>  
+		     
+		    <h1 >FeastFreedom Food Hunter</h1> 
+		   <div  class="col badge bg-success" sec:authorize = "isAuthenticated()">
+			    		Welcome <span  sec:authentication="name">   Username</span> 
+			    	</div>
 		    <div align = "center">
-		    	<div class="badge bg-success" sec:authorize = "isAuthenticated()">
-		    		Welcome <span  sec:authentication="name">   Username</span> 
-		    	</div>
-		    	<div sec:authorize="hasRole('PROVIDER')">
-				    <a type="button" class="btn btn-secondary" th:href="@{/provider/kitchenList}">My Kitchen Control</a>
-				</div>
-		    	<div sec:authorize="hasRole('ENDUSER')">Text visible to end user.</div>
-		        <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
-		        <div sec:authorize="isAuthenticated()"> </div>  
-			    
+		    	<div class = "row "> 
+			    	<div class="col">  
+				  		 <a type="button" class="btn btn-dark" th:href="@{/logout}">Logout</a>
+			  		</div> 
+			    	
+			    	<div class="col" sec:authorize="hasRole('PROVIDER')">
+					    <a type="button" class="btn btn-info" th:href="@{/provider/kitchenList}">My Kitchen Control</a>
+					</div>
+		    	    <div  class="col" sec:authorize="isAuthenticated()">
+		                <div sec:authorize="hasRole('ENDUSER')">
+		                    <a type="button" class="btn btn-primary" th:href="@{/user/cart/{userEmail}
+												   (userEmail = ${#authentication.getPrincipal().getUsername()})}">Cart</a>
+		                </div>
+		            </div>
+		            <div class="col">
+		            	<div sec:authorize="hasRole('ENDUSER')">
+		                      <a type= "button" class = "btn btn-primary"  th:href="@{/registration/provider}">Register For Provider</a>
+	                     </div> 
+	                </div>
+            	</div>
 			    <table class="table-warning table table-striped">
 					  <thead>
 						    <tr> 
@@ -45,18 +53,30 @@
 					        
 						    
 							<td >
-								<a th:href="@{/homepage/kitchen/allItem/{kitchenNameHere}(kitchenNameHere=${kitchen.kitchenName})}"> 
+								<a type = "button" class = "btn btn-warning"th:href="@{/homepage/kitchen/allItem/{kitchenNameHere}(kitchenNameHere=${kitchen.kitchenName})}"> 
 						 			<span th:text = ${kitchen.providerEmail}></span>
 						 		</a>
 							</td>
 							<td  >
-								<a th:href="@{/homepage/kitchen/allItem/{kitchenNameHere}(kitchenNameHere=${kitchen.kitchenName})}"> 
+								<a type = "button" class = "btn btn-warning" th:href="@{/homepage/kitchen/allItem/{kitchenNameHere}(kitchenNameHere=${kitchen.kitchenName})}"> 
 						 			<span th:text = "${kitchen.kitchenName}" ></span>
 						 		</a>
 					 		</td>
-							<td th:text = ${kitchen.date}></td>
-							<td th:text = ${kitchen.starttime}></td>
-							<td th:text = ${kitchen.endtime}></td>
+							<td  >
+								<a type = "button" class = "btn btn-warning" th:href="@{/homepage/kitchen/allItem/{kitchenNameHere}(kitchenNameHere=${kitchen.kitchenName})}"> 
+						 			<span th:text = "${kitchen.date}" ></span>
+						 		</a>
+					 		</td>
+					 		<td  >
+								<a type = "button" class = "btn btn-warning" th:href="@{/homepage/kitchen/allItem/{kitchenNameHere}(kitchenNameHere=${kitchen.kitchenName})}"> 
+						 			<span th:text = "${kitchen.starttime}" ></span>
+						 		</a>
+					 		</td>
+					 		<td  >
+								<a type = "button" class = "btn btn-warning" th:href="@{/homepage/kitchen/allItem/{kitchenNameHere}(kitchenNameHere=${kitchen.kitchenName})}"> 
+						 			<span th:text = "${kitchen.endtime}" ></span>
+						 		</a>
+					 		</td>
 							<td>
 								
 								<a th:href="@{/homepage/kitchen/allItem/{kitchenNameHere}(kitchenNameHere=${kitchen.kitchenName})}"> 
@@ -64,12 +84,7 @@
 						 		</a> 
 								
 							</td>
-						 	<!--  <td>
-						 		<a th:href="@{/delete/{idhere}(idhere = ${country.id})}"> Delete</a>
-						 
-						 	<td>
-						 		<a th:href= "@{/edit/{id} (id = ${country.id})}"> Edit</a>
-						 		-->
+						  
 					    	</tr>
 					    
 					  </tbody>

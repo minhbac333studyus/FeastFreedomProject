@@ -51,7 +51,7 @@ public class AppConfig {
   		  .build();  
     @Bean
     public DynamoDBMapper dynamoDBMapper() {
-        return new DynamoDBMapper(buildAmazonDynamoDB(),dynamoDBMapperConfig);
+        return new DynamoDBMapper(buildAmazonDynamoDB());
     }
    
 }

@@ -1,5 +1,6 @@
 package com.minhle.service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.minhle.model.kitchen.Item;
 import com.minhle.model.kitchen.Kitchen;
+import com.minhle.repo.kitchen.ItemRepo;
 import com.minhle.repo.kitchen.KitchenRepo;
  
 @Service
@@ -19,7 +21,7 @@ public class KitchenService {
 	@Autowired
 	private KitchenRepo krepo; 
 	@Autowired
-	private ItemService iService;
+	private ItemRepo iService;
 	public List<Kitchen>ListAllKitchen(){  
 		List<Kitchen>klist =  (List<Kitchen>) krepo.ListAllKitchen();
 		return klist;
@@ -44,25 +46,26 @@ public class KitchenService {
 	public void deleteKitchenByKitchenName(String kitchenName) {
 		krepo.deleteKitchenByKitchenName(kitchenName);
 	}
-	public HashSet<Item> getKitchenMenu(String kitchenName){
-		Kitchen result = krepo.getbykitcheName(kitchenName);
-		HashSet<String>allItemUnconverted = result.getMenu(); 
-		HashSet<Item> allItemConverted = new HashSet<>();;
+	public ArrayList<Item> getKitchenMenu(String kitchenName){
+		return krepo.getbykitcheName(kitchenName).getMenu();
 		 
-		for(String iUn : allItemUnconverted) {
-			allItemConverted.add(iService.unconvertItem(iUn));
-		}
-		return allItemConverted; 
+		 
 	}
+	public void addItemToKitchenMenu(String kitchenName, Item item) { 
+		krepo.addItemToKitchenMenu(kitchenName, item);
+	}
+	public void updateMenu(String kitchenName,String itemName, Item item) {
+		iService.updateItemInMenu(item, itemName, kitchenName);
+	}
+	
 	public Item getSelectedItemFromKitchen(String kitchenName, String ItemName) {
-		HashSet<Item> menu = getKitchenMenu(kitchenName);
-		Item item = new Item();
-		 
+		ArrayList<Item> menu = getKitchenMenu(kitchenName);
+		System.out.println(menu.toString());
 		for(Item i  : menu) {
-			if(i.getName() ==  ItemName) {
+			if(i.getName().equals(ItemName)) {
 				return i;  
 			}
 		}
-		return item;
+		return new Item();
 	}
 }

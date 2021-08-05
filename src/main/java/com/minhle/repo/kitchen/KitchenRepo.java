@@ -1,5 +1,7 @@
 package com.minhle.repo.kitchen; 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map; 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,8 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBSaveExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ExpectedAttributeValue;
-import com.minhle.model.kitchen.Kitchen;  
+import com.minhle.model.kitchen.Item;
+import com.minhle.model.kitchen.Kitchen; 
 @Repository
 public class KitchenRepo  { 
 	@Autowired
@@ -27,8 +30,7 @@ public class KitchenRepo  {
 		List<Kitchen> list =  dynamoDBMapper.scan(Kitchen.class, scanRequest);
 		if(list.size() ==0) {
 			return new Kitchen();
-		}
-		System.out.println(list.toString()); 
+		} 
 		return list.get(0);
 	}
 	public List<Kitchen> getAllKitchenByProviderEmail(String providerEmail) {
@@ -37,21 +39,15 @@ public class KitchenRepo  {
 		DynamoDBScanExpression scanRequest = new DynamoDBScanExpression()	
 													.withFilterExpression("providerEmail=:providerEmail")
 													.withExpressionAttributeValues(eav); 
-		List<Kitchen> list =  dynamoDBMapper.scan(Kitchen.class, scanRequest);
-		
+		List<Kitchen> list =  dynamoDBMapper.scan(Kitchen.class, scanRequest); 
 		System.out.println(list.toString());
 		return list;
 	}
 	
-	 public Kitchen getDetailOfOneKitchen(String id){
-	    	
+	 public Kitchen getDetailOfOneKitchen(String id){ 
 	    	return dynamoDBMapper.load(Kitchen.class, id) ;
-	    }
-	    
-	 
-	 
-	 
-	 public List<Kitchen>	  ListAllKitchen(){
+	    } 
+	 public List<Kitchen>ListAllKitchen(){
 		  
 		 DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
 	    	return dynamoDBMapper.scan(Kitchen.class, scanExpression);
@@ -78,4 +74,15 @@ public class KitchenRepo  {
 		 }
 		
 	 }	
+	 @Autowired
+	ItemRepo itemRepo;
+ 
+	public void addItemToKitchenMenu(String kitchenName, Item item) { 
+		Kitchen kit = this.getbykitcheName(kitchenName);  
+		kit.getMenu().add(item);
+		this.saveKitchen(kit);   
+	}
+	 
+	 
+	 
 }

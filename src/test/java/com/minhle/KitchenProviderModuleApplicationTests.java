@@ -2,6 +2,7 @@ package com.minhle;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.minhle.config.security.KitchenUserRegistrationDto; 
 import com.minhle.model.kitchen.Item; 
 import com.minhle.model.kitchen.Kitchen;
@@ -27,7 +29,7 @@ import com.minhle.repo.user.KitchenProviderRepository;
 import com.minhle.service.EndUserService;
 import com.minhle.service.KitchenProviderService;
 import com.minhle.service.KitchenService;
- 
+import com.minhle.test.Transaction;  
 @SpringBootTest
 class KitchenProviderModuleApplicationTests {
 
@@ -54,14 +56,77 @@ class KitchenProviderModuleApplicationTests {
 	 OrderRepo orderRepo;
 	 @Autowired
 	 EndUserService uService;
+	 @Autowired
+	 DynamoDBMapper mapper;
 	 @Test
-	 void testOrderRepo() { 
-		 String userEmail = "u2@gmail.com";
-		 String itemName= "chieckFried";
-		 String kitchenName = "NoKidding";
-		 orderRepo.addItemToOrder(kitchenName, userEmail, itemName);
- 
- }
+	 void testConvertUser() {
+		 EndUser u1 = endUserRepo.findByName("Minh");
+		 System.out.println(u1.getTemporaryOrder().getDate().toString());
+	 }
+//	 @Test  void makeOrderToUser() {
+//		 Item i1 = new Item("Tomtep","KFC",false, 12.2);
+//		 Item i2 = new Item("Tomtep","VL",false, 1222.0);
+//		 ArrayList<Item> items =new ArrayList<>();
+//		 items.add(i1);
+//		 items.add(i2);
+//		 
+//		 Order or = new Order(items,"minhbac333@gmail.com",12.2);
+//		EndUser u1 = EndUser.builder().name("Minh").email("minhbac333@gmail.com").temporaryOrder(or).build();
+//		endUserRepo.saveUser(u1);
+//	 }
+//	 @Test
+//	 void testOrderRepo() { 
+//		 String userEmail = "u2@gmail.com";
+//		 String itemName= "chieckFried";u
+	 
+//		 orderRepo.addItemToOrder(kitchenName, userEmail, itemName);
+// 
+// }
+//	 @Test 
+//	 void testGetKitchenByKitchenName() {
+//		 Kitchen k = kitchenService.getbykitcheName("TomTep");
+//		 System.out.println(k.getProviderEmail());
+//	 }
+//	 @Test
+//	 void testAddItemToMenu() {
+//		 Kitchen k = kitchenService.getbykitcheName("TomTep");
+//		 System.out.println(k);
+//		 Item i = new Item(k.getKitchenName(),"Shim", true, 12.2);
+//		 k.getMenu().add(i);
+//		 mapper.save(k);   
+//	 }
+//	 @Test void getItemFromKitchen() {
+//		 String	kitchenName = "TomTep";
+//		 String itemName=  "nothting";
+//		 Item item = kitchenService.getSelectedItemFromKitchen(kitchenName, itemName);
+//		 System.out.println(item);
+//	 }
+//	 @Test void testDeleteItem() {
+//		 System.out.println(itemRepo.getItemByItemNameAndKitchenName("haha", "TomTep"));
+//		 itemRepo.deleteItemInMenu( "haha","TomTep");
+//	 }
+//	 @Test
+//	 void testBook(){
+//		 Transaction t = new Transaction();
+//		 ArrayList<Customer> customerA = new ArrayList<Customer>();
+//		 t.setTransactionId("1");
+//		 t.setDate("2020-03-28");
+//		 customerA.add(Customer.builder().customerId("2").customerName("adam").build());
+//		 customerA.add(Customer.builder().customerId("3").customerName("bdam").build());
+//		 t.setCustomer(customerA);
+//		 mapper.save(t);
+//	 }
+//	 @Test
+//	 void testGetCustomer() {
+//
+//	    	DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+//	    	List<Transaction> list = mapper.scan(Transaction.class, scanExpression);
+//	     
+//	    	for(Transaction i: list) {
+//	    		System.out.println(i);
+//	    	}
+//	    	 
+//	 }
 //	@Test
 //	void testSaveProvider() {
 //		KitchenProviderUser user = new KitchenProviderUser();
@@ -77,7 +142,7 @@ class KitchenProviderModuleApplicationTests {
 //	@Autowired
 //	KitchenRepo kRepo;
 //	@Test void testGetAllItemMenu() {
-//		HashSet<Item> listMenu = kitchenService.getKitchenMenu("NoKidding");
+//		ArrayList<Item> listMenu = kitchenService.getKitchenMenu("NoKidding");
 //		for(Item i : listMenu) {
 //			System.out.println(i.getName());
 //		}
@@ -85,7 +150,8 @@ class KitchenProviderModuleApplicationTests {
 //	 
 //	@Test 
 //	void testSaveKitchenWithItemArray() {
-//		HashSet<String> menu = new HashSet<String>();
+//		ArrayList<Item>menu = new ArrayList<Item>();
+//		ArrayList<Item>menu2 = new ArrayList<Item>();
 //		Item i1 = new Item();
 //		i1.setKitchenName("NoKidding");
 //		i1.setName("chieckFried");
@@ -97,12 +163,10 @@ class KitchenProviderModuleApplicationTests {
 //		i2.setName("chieckPIzza");
 //		i2.setPrice(12.0);
 //		i2.setVegOption(true);
-//		menu.add(i2.toString() );
-//		menu.add(i1.toString());
-//		Order temp = new Order();
-//		temp.setUserEmail("p1@gmail.com");
-//		Kitchen k = new Kitchen("p1@gmail.com","NoKidding", "12-02-2022", "0Am", "12Am", 
-//									"https://s3.us-east-2.amazonaws.com/feast.freedom/pic1.jpg", menu,temp.toString()); 
+//		menu.add(i2 );
+//		menu.add(i1 );  
+//		Kitchen k = new Kitchen( "p1@gmail.com","NoKidding", "12-02-2022", "0Am", "12Am", 
+//									"https://s3.us-east-2.amazonaws.com/feast.freedom/pic1.jpg"); 
 //		 
 //		
 //		kitchenRepo.saveKitchen(k ); 

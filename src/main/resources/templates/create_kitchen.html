@@ -6,16 +6,12 @@
     <title>Spring Boot Thymeleaf Application - Form Samples - Inputs</title>
 </head>
 <body>
-	<form align = "center" action="#" th:action ="@{/provider/kitchen/save}" th:object = "${kitchen}" method = "post">
+	<form align = "center" action="#" th:action ="@{/provider/kitchen/save/{userEmail}(userEmail = ${#authentication.getPrincipal().getUsername()})}" th:object = "${kitchen}" method = "post">
 	    <div class="d-flex flex-column bd-highlight"> 
 	    	<div class="badge bg-success" sec:authorize = "isAuthenticated()">
 		    		Welcome <span  sec:authentication="name">   Username</span> 
 	    	</div>
-	    	  <div class="input-group">
-			    <span class="input-group-text" id="input-group-left-example">Kitchen Name</span>
-			    <input type = "text" th:field = "*{providerEmail}"  id = "providerEmail" placeholder="Type your provider email here">
-			    <span th:if="${#fields.hasErrors('providerEmail')}" th:errors="*{providerEmail}"></span>
-		    </div>
+	    	   
 		    <div class="input-group">
 			    <span class="input-group-text" id="input-group-left-example">Kitchen Name</span>
 			    <input type = "text" th:field = "*{kitchenName}"  id = "kitchenName" placeholder="Type your kitchen name here">

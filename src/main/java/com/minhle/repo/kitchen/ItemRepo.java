@@ -1,4 +1,5 @@
 package com.minhle.repo.kitchen; 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -22,63 +23,37 @@ public class ItemRepo {
     private DynamoDBMapper dynamoDBMapper; 
 	@Autowired
 	private KitchenService kitchenService;
-	public void    saveItem(Item i){ 
+	public void saveItem(Item i){ 
 		dynamoDBMapper.save(i);
 	} 
-	public String getItemByItemNameAndKitchenName(String ItemName, String KitchenName) {
-		Kitchen k = kitchenService.getbykitcheName(KitchenName);
-		Set<String>menu = k.getMenu();
-		if(menu.size() ==0)
-			return new Item().toString();  
-		 
-        HashSet<Item> menuConvert = new HashSet<>();
-		for(String i : menu) {
-			menuConvert.add(this.unConvert(i));
-		}
-		 
-		for(Item i : menuConvert) {
-			System.out.println(i.getName());
-			if(i.getName().equals(ItemName) ) {
-				return i.toString();
+	public Item getItemByItemNameAndKitchenName(String ItemName, String KitchenName) { 
+		ArrayList<Item> menu = kitchenService.getKitchenMenu(KitchenName);
+		for(Item i : menu) {
+			if(i.getName().equals(ItemName)) {
+				return i;
 			}
 		}
         System.out.println("Can not find the Item you need in KitchenName");
-        return new Item().toString();
-		
+        return new Item(); 
 	}
-	public Item unConvert(String ItemUnconvert) {
-		Item item = new Item();
-		try {
-            if (ItemUnconvert != null && ItemUnconvert.length() != 0) {
-                String[] data = ItemUnconvert.split(",");
-                item.setName(data[0].trim());
-                if (data[1].trim() == "0" || data[1].trim() == "false") {
-                	item.setVegOption(false);
-                }
-                else {
-                	item.setVegOption(true);
-                }
-                item.setPrice(Double.parseDouble(data[2].trim()));
-                item.setKitchenName(data[3].trim());
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-		return item;  
+	
+	public List<Item> ListAllItemInKitchen(String KitchenName){ 
+		  return kitchenService.getKitchenMenu(KitchenName);
+	 }   
+	public void deleteItemInMenu(String ItemName,String KitchenName) {
+		List<Item> Menu = kitchenService.getKitchenMenu(KitchenName);
+		Menu.remove(getItemByItemNameAndKitchenName(ItemName, KitchenName));
+		Kitchen k = kitchenService.getbykitcheName(KitchenName);
+		k.setMenu((ArrayList<Item>)Menu);
+		kitchenService.saveKitchen(k);
 	}
-	public List<Item> ListAllItem(){ 
-		 DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-	    	return dynamoDBMapper.scan(Item.class, scanExpression);
-		  
-	 }  
-	 public  String updateItem(String id,Item i) { 
-		 dynamoDBMapper.save(i,
-				 			 new DynamoDBSaveExpression()
-				 			 		.withExpectedEntry("itemid",
-				 			 						   new ExpectedAttributeValue(new AttributeValue().withS(id)
-		 			 								   )));
-        return id; 
-	 } 
+	public void updateItemInMenu(Item Item, String ItemName , String kitchenName) {
+		List<Item> Menu = kitchenService.getKitchenMenu(kitchenName);
+		int IndexOfItemNeedReplace = Menu.indexOf(kitchenService.getSelectedItemFromKitchen(kitchenName, ItemName));
+		Menu.set(IndexOfItemNeedReplace, Item); 
+		Kitchen k = kitchenService.getbykitcheName(kitchenName);
+		k.setMenu((ArrayList<Item>)Menu);
+		kitchenService.saveKitchen(k);
+	} 
 }
 

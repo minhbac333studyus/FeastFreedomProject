@@ -18,13 +18,20 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
 import com.minhle.model.kitchen.Item;
 import com.minhle.model.kitchen.Order;
+import com.minhle.model.kitchen.converter.OrderConverter;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
  
 
 @DynamoDBTable(tableName = "EndUser") 
 @Component
 @Data
+@ToString
+@Builder
+@AllArgsConstructor
 public class EndUser    {
 
     @DynamoDBHashKey
@@ -46,27 +53,19 @@ public class EndUser    {
     @DynamoDBAttribute(attributeName = "Password")
     @NotNull
     @Size(min = 10,max = 50) 
-	private String password; 
-    
- 
-    
+	private String password;  
 //    @DynamoDBAttribute(attributeName = "OrderHistory")
 //    private ArrayList<Order> orderHistory;
 //    
     @DynamoDBAttribute(attributeName = "TemporaryOder")
-    private String temporaryOrder;
-   
-   
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return name+ " "+ email + " " + password + temporaryOrder ;
-	}
+    @DynamoDBTypeConverted(converter = OrderConverter.class)
+    private Order temporaryOrder;
+  
 	public EndUser() { 
 		this.name = "Empty";
 		this.email = "Empty";
 		this.password = "Empty";
-		this.temporaryOrder = new Order().toString();  
+		this.temporaryOrder = new Order();  
 	} 
 	public EndUser(  @NotNull @Size(max = 50) @UniqueElements String name,
 			@Email @NotNull @Size(max = 50) @UniqueElements String email,
@@ -75,20 +74,17 @@ public class EndUser    {
 	 
 		this.name = name;
 		this.email = email;
-		this.password = password; 
-		Order or = new Order();
-		or.setUserEmail(email);
-		this.temporaryOrder = or.toString();
+		this.password = password;  
+		this.temporaryOrder = new Order();
 		 
 	}
 	public EndUser(@NotNull @Size(max = 50) String name, @Email @NotNull @Size(max = 50) String email,
-			@NotNull @Size(min = 10, max = 50) String password, String temporaryOrder) {
+			@NotNull @Size(min = 10, max = 50) String password, Order temporaryOrder) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.temporaryOrder = temporaryOrder;
-		 
+		this.temporaryOrder = temporaryOrder; 
 	}
 	
 	 

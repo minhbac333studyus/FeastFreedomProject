@@ -40,7 +40,7 @@ public class EndUserService implements UserDetailsService
 	    user.setPassword(passwordEncoder.encode(registration.getPassword())); 
 	    Order order = new Order();
 	    order.setUserEmail(registration.getEmail());
-	    user.setTemporaryOrder(order.toString());
+	    user.setTemporaryOrder(order );
 	    return endUserRepository.saveUser(user);
 	} 
 	@Override

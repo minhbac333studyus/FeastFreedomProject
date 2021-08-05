@@ -21,13 +21,12 @@
 		    	<div sec:authorize="hasRole('ENDUSER')">Text visible to end user.</div>
 		        <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
 		        <div sec:authorize="isAuthenticated()">
-		        <a type="button" class="btn btn-secondary" th:href="@{/logout}">Logout</a>
-		        <a type="button" class="btn btn-secondary" th:href="@{/homepage/loginsucess}">Homepage</a>
-		        <a type="button" class="btn btn-secondary" th:href="@{/provider/kitchen/create}">Add New Kitchen</a>
+		        <a type="button" class="btn btn-dark" th:href="@{/logout}">Logout</a>
+		        <a type="button" class="btn btn-info" th:href="@{/homepage/loginsucess}">Homepage</a>
+		        <a type="button" class="btn btn-primary" th:href="@{/provider/kitchen/create/{userEmail}(userEmail = ${#authentication.getPrincipal().getUsername()})}">Add New Kitchen</a>
 		        <table class="table table-striped">
 				  <thead>
-				    <tr> 
-				      <th scope="col">ProviderName</th>
+				    <tr>  
 				      <th scope="col">KitchenName</th> 
 				      <th scope="col">Date</th>
 				      <th scope="col">Start Time</th>
@@ -37,23 +36,37 @@
 				  </thead>
 				  <tbody>
 				    <tr th:each = "kitchen :${kitchenList}">
-			        
-				   
-					<td th:text = ${kitchen.providerEmail}></td>
-					<td th:text = ${kitchen.kitchenName}></td>
-					<td th:text = ${kitchen.date}></td>
-					<td th:text = ${kitchen.starttime}></td>
-					<td th:text = ${kitchen.endtime}></td>
+				     
+					 <td >
+						<a type = "button" class = "btn btn-warning" th:href="@{/homepage/kitchen/allItem/{kitchenNameHere}(kitchenNameHere=${kitchen.kitchenName})}"> 
+							<span th:text = ${kitchen.kitchenName}> </span>
+						</a> 
+						
+					</td>
+					<td >
+						<a type = "button" class = "btn btn-warning" th:href="@{/homepage/kitchen/allItem/{kitchenNameHere}(kitchenNameHere=${kitchen.kitchenName})}"> 
+							<span th:text = ${kitchen.date}> </span>
+						</a>  
+					</td>
+					<td >
+						<a type = "button" class = "btn btn-warning" th:href="@{/homepage/kitchen/allItem/{kitchenNameHere}(kitchenNameHere=${kitchen.kitchenName})}"> 
+							<span th:text = ${kitchen.starttime}> </span>
+						</a>  
+					</td>
+					<td >
+						<a type = "button" class = "btn btn-warning" th:href="@{/homepage/kitchen/allItem/{kitchenNameHere}(kitchenNameHere=${kitchen.kitchenName})}"> 
+							<span th:text = ${kitchen.endtime}> </span>
+						</a>  
+					</td>
 					<td>
-						<img th:src= @{${kitchen.imageUrl}} class="img-thumbnail" alt="img-thumbnail"> 
+						<a type = "button"   th:href="@{/homepage/kitchen/allItem/{kitchenNameHere}(kitchenNameHere=${kitchen.kitchenName})}"> 
+							<img th:src= @{${kitchen.imageUrl}} class="img-thumbnail" alt="img-thumbnail"> 
+							</a>
 					</td>
 				 	 <td>
-				 		<a type="button" class="btn btn-secondary"
+				 		<a type="button" class="btn btn-danger"
 				 			th:href="@{/provider/delete/{kitchenNamePathVar}(kitchenNamePathVar = ${kitchen.kitchenName})}"> Delete</a>
-				 <!--  
-				 	<td>
-				 		<a th:href= "@{/edit/{id} (id = ${country.id})}"> Edit</a>
-				 		-->
+			 
 				    </tr> 
 				  </tbody>
 				</table>
