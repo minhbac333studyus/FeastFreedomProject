@@ -2,8 +2,7 @@ package com.minhle.controller.registration;
  
  
 import org.springframework.beans.factory.annotation.Autowired;
- 
-import org.springframework.messaging.MessagingException;
+  
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.minhle.config.security.KitchenUserRegistrationDto;
 import com.minhle.model.user.KitchenProviderUser;
 import com.minhle.service.KitchenProviderService;
+
 //import com.minhle.service.NotificationEmailService;
 
 import java.io.UnsupportedEncodingException;

@@ -28,8 +28,7 @@ import com.minhle.repo.user.EndUserRepository;
 import com.minhle.repo.user.KitchenProviderRepository;
 import com.minhle.service.EndUserService;
 import com.minhle.service.KitchenProviderService;
-import com.minhle.service.KitchenService;
-import com.minhle.test.Transaction;  
+import com.minhle.service.KitchenService; 
 @SpringBootTest
 class KitchenProviderModuleApplicationTests {
 

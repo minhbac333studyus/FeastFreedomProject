@@ -13,19 +13,15 @@ import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
-import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
-import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClientBuilder;
-
-import io.awspring.cloud.ses.SimpleEmailServiceMailSender;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig; 
+ 
  
 @Configuration
 
 public class AppConfig {
 	@Value("${amazon.dynamodb.endpoint}") 
 	private String dynamodbEndpoint;
-	@Value("${amazon.ses.endpoint}")
-	private String sesEndpoint;
+ 
 	@Value("${amazon.aws.accesskey}")
 	private String dynamodbAccessKey;
 	@Value("${amazon.aws.secretkey}")
